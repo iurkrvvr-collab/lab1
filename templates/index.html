@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коти</title>
+</head>
+
+<body>
+    На цій сторінці будуть коти.
+    {% if cats_count == 0 %} Але зараз  їх немає
+    {% else %} Зараз їх {{ cats_count }} штук.
+    {% endif %}
+
+    <ul>
+    {% for cat in cats %}
+        <li><a href="{{ url_for('cat', id=cat.id) }}" >{{cat.name}}</a></li>
+    {% endfor %}
+    </ul>
+
+   <a href="{{ url_for('info') }}">Дізнатися більше</a>
+
+</body>
+
+</html>

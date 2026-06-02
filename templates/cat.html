@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кіт</title>
+</head>
+<body>
+    <p>Ім'я {{ cat_id }} кота {{ cat.name }}. 
+        Йому {{ cat.age }} 
+    {% if cat.age <= 4 %}
+        роки.
+    {% else %}
+        років.
+    {% endif %}
+    </p>
+    <img src="{{ cat.photo }}" width="700px"/>
+
+    <a href="{{ url_for('home')}}">На головну</a>
+</body>
+</html>
