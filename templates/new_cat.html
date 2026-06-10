@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати нового кота</title>
+</head>
+<body>
+    <h2>Додати нового кота в базу даних</h2>
+    <form action="/cats/new" method="post">
+        <label>ID: <input type="number" name="id" required></label><br><br>
+        <label>Ім'я: <input type="text" name="name" required></label><br><br>
+        <label>Посилання на фото: <input type="url" name="photo" required></label><br><br>
+        <label>Вік: <input type="number" name="age" required></label><br><br>
+        <button type="submit">Зберегти котика</button>
+    </form>
+    <br>
+    <a href="{{ url_for('home') }}">На головну</a>
+</body>
+</html>

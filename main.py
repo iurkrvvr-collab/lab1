@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form  
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from models import Cat
@@ -31,14 +30,32 @@ def info(request: Request) -> HTMLResponse:
         context={"title": "Інформація"}
     )
 
+@app.get("/cats/new", response_class=HTMLResponse)
+def new_cat_form(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(request=request, name="new_cat.html", context={})
+
+@app.post("/cats/new", response_class=HTMLResponse)
+def create_cat(
+    request: Request, 
+    id: int = Form(...), 
+    name: str = Form(...), 
+    photo: str = Form(...), 
+    age: int = Form(...)
+) -> HTMLResponse:
+    new_cat = Cat(id=id, name=name, photo=photo, age=age)
+    DATABASE.add_cat(new_cat)  
+    
+    cats = DATABASE.get_all()
+    return templates.TemplateResponse(
+        request=request, name="index.html", context={"cats_count": len(cats), "cats": cats}
+    )
+
 @app.get("/{id}", response_class=HTMLResponse)
 def cat(request: Request, id: int) -> HTMLResponse:
     cat = DATABASE.get_by_id(id)
-
     return templates.TemplateResponse(
         request=request, name="cat.html", context={
             "cat_id": id,
             "cat": cat
         }
     )
-
